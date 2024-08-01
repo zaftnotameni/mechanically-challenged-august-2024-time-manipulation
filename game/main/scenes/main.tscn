@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://bp1ep3uqm5qpe"]
+
+[ext_resource type="Script" path="res://game/util/scripts/static-body-with-polygon.gd" id="1_h37jf"]
+[ext_resource type="PackedScene" uid="uid://d3114453yx7al" path="res://game/player/scenes/character.tscn" id="2_jxul3"]
+
+[node name="Main" type="Node2D"]
+position = Vector2(1, 0)
+
+[node name="Terrain" type="CanvasLayer" parent="."]
+
+[node name="StaticBodyWithPolygon2D" type="StaticBody2D" parent="Terrain"]
+position = Vector2(1, 0)
+script = ExtResource("1_h37jf")
+
+[node name="Floor" type="CollisionPolygon2D" parent="Terrain/StaticBodyWithPolygon2D"]
+modulate = Color(0.478431, 0.290196, 0.352941, 1)
+polygon = PackedVector2Array(-1, 256, 639, 256, 639, 320, -1, 320)
+
+[node name="Left" type="CollisionPolygon2D" parent="Terrain/StaticBodyWithPolygon2D"]
+modulate = Color(0.478431, 0.290196, 0.352941, 1)
+polygon = PackedVector2Array(-1, 0, -1, 256, 63, 256, 63, 0)
+
+[node name="Right" type="CollisionPolygon2D" parent="Terrain/StaticBodyWithPolygon2D"]
+modulate = Color(0.478431, 0.290196, 0.352941, 1)
+polygon = PackedVector2Array(575, 0, 575, 256, 639, 256, 639, 0)
+
+[node name="PlatformBottom" type="CollisionPolygon2D" parent="Terrain/StaticBodyWithPolygon2D"]
+modulate = Color(0.478431, 0.290196, 0.352941, 1)
+polygon = PackedVector2Array(383, 192, 383, 208, 511, 208, 511, 192)
+
+[node name="PlatformTop" type="CollisionPolygon2D" parent="Terrain/StaticBodyWithPolygon2D"]
+modulate = Color(0.478431, 0.290196, 0.352941, 1)
+polygon = PackedVector2Array(127, 128, 127, 144, 255, 144, 255, 128)
+
+[node name="AutoPolygonFloor" type="Polygon2D" parent="Terrain/StaticBodyWithPolygon2D"]
+color = Color(0.478431, 0.290196, 0.352941, 1)
+polygon = PackedVector2Array(-1, 256, 639, 256, 639, 320, -1, 320)
+
+[node name="AutoPolygonLeft" type="Polygon2D" parent="Terrain/StaticBodyWithPolygon2D"]
+color = Color(0.478431, 0.290196, 0.352941, 1)
+polygon = PackedVector2Array(-1, 0, -1, 256, 63, 256, 63, 0)
+
+[node name="AutoPolygonRight" type="Polygon2D" parent="Terrain/StaticBodyWithPolygon2D"]
+color = Color(0.478431, 0.290196, 0.352941, 1)
+polygon = PackedVector2Array(575, 0, 575, 256, 639, 256, 639, 0)
+
+[node name="AutoPolygonPlatformBottom" type="Polygon2D" parent="Terrain/StaticBodyWithPolygon2D"]
+color = Color(0.478431, 0.290196, 0.352941, 1)
+polygon = PackedVector2Array(383, 192, 383, 208, 511, 208, 511, 192)
+
+[node name="AutoPolygonPlatformTop" type="Polygon2D" parent="Terrain/StaticBodyWithPolygon2D"]
+color = Color(0.478431, 0.290196, 0.352941, 1)
+polygon = PackedVector2Array(127, 128, 127, 144, 255, 144, 255, 128)
+
+[node name="Player" type="CanvasLayer" parent="."]
+
+[node name="Character" parent="Player" instance=ExtResource("2_jxul3")]
+position = Vector2(448, 136)

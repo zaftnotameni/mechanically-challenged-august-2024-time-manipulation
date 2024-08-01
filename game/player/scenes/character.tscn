@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3114453yx7al"]
+
+[ext_resource type="Script" path="res://game/util/scripts/collision-polygon-with-polygon.gd" id="1_0fwht"]
+[ext_resource type="Script" path="res://game/player/scripts/simple-platformer-controller.gd" id="2_nrtr7"]
+
+[node name="Character" type="CharacterBody2D"]
+
+[node name="CollisionWithPolygon2D" type="CollisionPolygon2D" parent="."]
+modulate = Color(1, 0.92549, 0.839216, 1)
+polygon = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
+script = ExtResource("1_0fwht")
+
+[node name="AutoPolygonCollisionWithPolygon2D" type="Polygon2D" parent="CollisionWithPolygon2D"]
+color = Color(1, 0.92549, 0.839216, 1)
+polygon = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
+
+[node name="SimplePlatformerController" type="Node2D" parent="."]
+script = ExtResource("2_nrtr7")
