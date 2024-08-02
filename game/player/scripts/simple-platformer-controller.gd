@@ -1,5 +1,8 @@
 class_name SimplePlatformerController extends Node2D
 
+signal sig_jump_started()
+signal sig_jump_landed()
+
 @export var speed : float = 100.0
 @export var jump_time_to_peak : float = 0.6 : set = set_jump_time_to_peak
 @export var jump_time_to_land : float = 0.4 : set = set_jump_time_to_land
@@ -14,9 +17,12 @@ const INPUT_JUMP := &'player-jump'
 @onready var character : CharacterBody2D = owner
 
 func _physics_process(delta: float) -> void:
+  var was_on_floor = character.is_on_floor()
   apply_horizontal_movement()
   apply_gravity(delta)
   character.move_and_slide()
+  var is_on_floor = character.is_on_floor()
+  if not was_on_floor and is_on_floor: sig_jump_landed.emit()
 
 func _unhandled_input(event: InputEvent) -> void:
   if character.is_on_floor() and event.is_action_pressed(INPUT_JUMP):
@@ -26,6 +32,7 @@ func _ready() -> void:
   run_kinematic_equations()
 
 func apply_jump():
+  sig_jump_started.emit()
   character.velocity.y = -jump_initial_speed
 
 func apply_horizontal_movement():

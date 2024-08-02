@@ -2,20 +2,17 @@
 
 [ext_resource type="Script" path="res://game/util/scripts/static-body-with-polygon.gd" id="1_h37jf"]
 [ext_resource type="PackedScene" uid="uid://d3114453yx7al" path="res://game/player/scenes/character.tscn" id="2_jxul3"]
-[ext_resource type="AnimationLibrary" uid="uid://chmi6k4qgjfgm" path="res://library.tres" id="3_iedu6"]
+
+[sub_resource type="Environment" id="Environment_moflg"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.5
+glow_hdr_threshold = 0.7
 
 [node name="Main" type="Node2D"]
 position = Vector2(1, 0)
 
 [node name="Background" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="Background"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.145098, 0.129412, 0.243137, 1)
 
 [node name="Terrain" type="CanvasLayer" parent="."]
 
@@ -66,9 +63,16 @@ polygon = PackedVector2Array(127, 128, 127, 144, 255, 144, 255, 128)
 [node name="Player" type="CanvasLayer" parent="."]
 
 [node name="Character" parent="Player" instance=ExtResource("2_jxul3")]
-position = Vector2(441.258, 175.925)
+position = Vector2(342.925, 160.862)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"library": ExtResource("3_iedu6")
-}
+[node name="Tutorial" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="Tutorial"]
+offset_left = 103.0
+offset_top = 272.0
+offset_right = 534.0
+offset_bottom = 304.0
+text = "[WASD or Arrows: Move]  [Space or X: Jump]  [R: Rewind]"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_moflg")

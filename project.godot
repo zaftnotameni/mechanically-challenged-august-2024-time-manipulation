@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Time Manipulation (Mechanically Challenged September 2024)"
-config/description="Time Manipulation (Mechanically Challenged September 2024)"
+config/name="Time Manipulation (Mechanically Challenged August 2024)"
+config/description="Time Manipulation (Mechanically Challenged August 2024)"
 run/main_scene="res://game/main/scenes/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/bg_color=Color(0.145098, 0.129412, 0.243137, 1)
