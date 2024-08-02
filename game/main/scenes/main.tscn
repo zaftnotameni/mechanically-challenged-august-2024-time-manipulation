@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bp1ep3uqm5qpe"]
+[gd_scene load_steps=4 format=3 uid="uid://bp1ep3uqm5qpe"]
 
 [ext_resource type="Script" path="res://game/util/scripts/static-body-with-polygon.gd" id="1_h37jf"]
 [ext_resource type="PackedScene" uid="uid://d3114453yx7al" path="res://game/player/scenes/character.tscn" id="2_jxul3"]
+[ext_resource type="AnimationLibrary" uid="uid://chmi6k4qgjfgm" path="res://library.tres" id="3_iedu6"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(1, 0)
@@ -65,4 +66,9 @@ polygon = PackedVector2Array(127, 128, 127, 144, 255, 144, 255, 128)
 [node name="Player" type="CanvasLayer" parent="."]
 
 [node name="Character" parent="Player" instance=ExtResource("2_jxul3")]
-position = Vector2(448, 136)
+position = Vector2(441.258, 175.925)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"library": ExtResource("3_iedu6")
+}
