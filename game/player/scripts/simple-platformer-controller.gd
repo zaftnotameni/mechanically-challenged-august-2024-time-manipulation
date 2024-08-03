@@ -4,9 +4,9 @@ signal sig_jump_started()
 signal sig_jump_landed()
 
 @export var speed : float = 100.0
-@export var jump_time_to_peak : float = 0.6 : set = set_jump_time_to_peak
-@export var jump_time_to_land : float = 0.4 : set = set_jump_time_to_land
-@export var jump_height: float = 64.0 : set = set_jump_height
+@export var jump_time_to_peak : float = 0.5 : set = set_jump_time_to_peak
+@export var jump_time_to_land : float = 0.3 : set = set_jump_time_to_land
+@export var jump_height: float = 96.0 : set = set_jump_height
 
 const INPUT_LEFT := &'player-left'
 const INPUT_RIGHT := &'player-right'

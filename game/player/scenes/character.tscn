@@ -26,16 +26,13 @@ polygon = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
 color = Color(1, 0.92549, 0.839216, 1)
 polygon = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
 
-[node name="MechanicallyChallengedRewinder" type="Node2D" parent="CollisionWithPolygon2D/AutoPolygonCollisionWithPolygon2D" node_paths=PackedStringArray("target")]
-script = ExtResource("3_6ml6d")
-target = NodePath("..")
-
 [node name="SimplePlatformerController" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_nrtr7")
 
 [node name="MechanicallyChallengedRewinder" type="Node2D" parent="."]
 script = ExtResource("3_6ml6d")
+tracks_skew = 1
 
 [node name="PlayerCharacterAnimations" type="Node2D" parent="."]
 script = ExtResource("4_fry55")

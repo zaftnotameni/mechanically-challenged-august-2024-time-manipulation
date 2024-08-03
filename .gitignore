@@ -1,3 +1,12 @@
+/bat/editor-sc.bat
+/bat/itch-web.bat
+/bat/itch-lin.bat
+/bat/itch-win.bat
+/bat/vi.bat
+/exports/web/
+/exports/win/
+/exports/lin/
+
 # Godot 4+ specific ignores
 .godot/
 /android/

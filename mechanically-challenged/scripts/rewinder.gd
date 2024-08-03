@@ -1,13 +1,25 @@
 class_name MechanicallyChallengedRewinder extends Node2D
 
 enum RewinderMode { RECORD, REWIND }
+enum NY { No, Yes }
 
+@export_group('target')
+## defaults to the scene root if not set
+@export var target : Node2D
+
+@export_group('timing')
 @export var max_time_in_seconds : float = 2.0
 @export var resoltion_fps : int = 30
 
+@export_group('tracks')
+@export var tracks_position : NY = NY.Yes
+@export var tracks_rotation : NY
+@export var tracks_skew : NY
+@export var tracks_scale : NY
+
 const REWINDER_GROUP := &'rewinder'
 
-@export var target : Node2D
+var number_of_frames : int
 
 var mode : RewinderMode
 var scales : Array
@@ -35,27 +47,22 @@ func setup_rewind_track_for(selector:String=':position', values:Array=positions)
     tween.tween_property(target, selector, val, delta_t)
   return tween
 
-
 func prepare_rewind() -> Array[Tween]:
-  print(
-  [{ 'shape': 1 }, { 'shape': 1 }, { 'shape': 2 }].reduce(func (dict, entry):
-    dict.get_or_add(entry.shape, []).push_back(entry)
-    return dict
-    , {}))
   var tweens : Array[Tween] = []
   mode = RewinderMode.REWIND
   set_physics_process(mode == RewinderMode.RECORD)
   tweens.push_back(setup_rewind_track_for(':position', positions))
   tweens.push_back(setup_rewind_track_for(':skew', skews))
   tweens.push_back(setup_rewind_track_for(':scale', scales))
+  tweens.push_back(setup_rewind_track_for(':rotation', rotations))
   return tweens
 
 func reset(new_mode:RewinderMode=RewinderMode.RECORD):
   pointer = 0
-  positions.fill(null)
-  scales.fill(null)
-  skews.fill(null)
-  rotations.fill(null)
+  if tracks_rotation == NY.Yes: rotations.fill(null)
+  if tracks_position == NY.Yes: positions.fill(null)
+  if tracks_skew == NY.Yes: skews.fill(null)
+  if tracks_scale == NY.Yes: scales.fill(null)
   mode = new_mode
   set_physics_process(mode == RewinderMode.RECORD)
 
@@ -79,27 +86,47 @@ func path_to_target(selector:String='') -> String:
   return str(get_tree().current_scene.get_path_to(target)) + selector
 
 func record_rotation():
+  if tracks_rotation == NY.No: return
   rotations[pointer % positions.size()] = target.rotation
 
 func record_skew():
+  if tracks_skew == NY.No: return
   skews[pointer % positions.size()] = target.skew
 
 func record_position():
+  if tracks_position == NY.No: return
   positions[pointer % positions.size()] = target.position
 
 func record_scale():
+  if tracks_scale == NY.No: return
   scales[pointer % scales.size()] = target.scale
 
 func init_databags():
+  number_of_frames = roundi(max_time_in_seconds * resoltion_fps)
+  init_position()
+  init_skew()
+  init_rotation()
+  init_scale()
+
+func init_position():
+  if tracks_position == NY.No: return
   positions = []
-  scales = []
-  skews = []
-  rotations = []
-  var number_of_frames := roundi(max_time_in_seconds * resoltion_fps)
   positions.resize(number_of_frames)
-  scales.resize(number_of_frames)
+
+func init_skew():
+  if tracks_skew == NY.No: return
+  skews = []
   skews.resize(number_of_frames)
+
+func init_rotation():
+  if tracks_rotation == NY.No: return
+  rotations = []
   rotations.resize(number_of_frames)
+
+func init_scale():
+  if tracks_scale == NY.No: return
+  scales = []
+  scales.resize(number_of_frames)
 
 static func all() -> Array[MechanicallyChallengedRewinder]:
   var tree := Engine.get_main_loop() as SceneTree
